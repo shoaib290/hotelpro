@@ -13,7 +13,8 @@ import logo from '../../../assets/logo.png';
 import iconsimage from '../../../assets/iconsimage.png';
 import { login } from '../../../features/userSlice';
 import { useDispatch } from 'react-redux';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const useStyles = makeStyles({
@@ -54,6 +55,8 @@ function Login() {
 
   const dispatch = useDispatch();
 
+  const notify = () =>toast("Incorrect Credentials!");
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -64,12 +67,25 @@ function Login() {
     })
     );
 
-    history.push('/Dashboard');
+
+
+    if (username === "admin" && password === "admin") {
+      history.push('/Dashboard');
+
+    } else {
+      notify();
+    }
+
+
   };
 
 
 
+
+
   return (
+
+
     <div className="LogIn">
       <div className="row" style={{ width: "100%" }}>
 
@@ -98,6 +114,17 @@ function Login() {
                   />
                 </div>
 
+                <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
 
                 <div className="col-md-12" style={{ marginTop: "20px" }} >
                   <TextField type="password" id="outlined-basic" label="Password" style={{ width: "200px" }}

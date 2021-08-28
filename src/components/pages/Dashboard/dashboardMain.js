@@ -106,22 +106,22 @@ const DashboardMain = () => {
 
             <div className="charts__right__cards">
               <div className="card1">
-                <h1>Income</h1>
-                <p>$75,300</p>
+                <h1>Total Bookings</h1>
+                <p>75,300</p>
               </div>
 
               <div className="card2">
-                <h1>Sales</h1>
-                <p>$124,200</p>
+                <h1>Confirmed Bookings</h1>
+                <p>124,200</p>
               </div>
 
               <div className="card3">
-                <h1>Users</h1>
+                <h1>Pending Bookings</h1>
                 <p>3900</p>
               </div>
 
               <div className="card4">
-                <h1>Orders</h1>
+                <h1>Closed Bookings</h1>
                 <p>1881</p>
               </div>
             </div>
@@ -149,22 +149,22 @@ const DashboardMain = () => {
 
             <div className="charts__right__cards">
               <div className="card1">
-                <h1>Income</h1>
-                <p>$75,300</p>
+                <h1>Total Orders</h1>
+                <p>75,300</p>
               </div>
 
               <div className="card2">
-                <h1>Sales</h1>
-                <p>$124,200</p>
+                <h1>Confirmed Orders</h1>
+                <p>124,200</p>
               </div>
 
               <div className="card3">
-                <h1>Users</h1>
+                <h1>Pending Orders</h1>
                 <p>3900</p>
               </div>
 
               <div className="card4">
-                <h1>Orders</h1>
+                <h1>Closed Orders</h1>
                 <p>1881</p>
               </div>
             </div>
