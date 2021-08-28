@@ -1,3 +1,5 @@
+
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,15 +21,10 @@ import InfoIcon from '@material-ui/icons/Info';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuList from '@material-ui/core/MenuList';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import RoomIcon from '@material-ui/icons/Room';
 import KitchenIcon from '@material-ui/icons/Kitchen';
+import Popup from './Contactus';
 
 
 
@@ -114,13 +111,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
+
 export default function PrimarySearchAppBar() {
+
 
   const History = useHistory();
   const classes = useStyles();
 
-
-
+  const [id, setId] = useState();
+  const [openPopup, setOpenPopup] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [navBarData, setNavBarData] = React.useState([]);
@@ -170,12 +170,39 @@ export default function PrimarySearchAppBar() {
   const DashboardHandler = () => {
     setAnchorEl(null);
     History.push('/Dashboard');
+
   }
 
-  const onNavigateHandler = (value) => {
-    console.log("pass hori value", value);
-    History.push(`${value}`);
+  const ContactHandler = () => {
+    setAnchorEl(null);
+    History.push('/Contact');
+
   }
+
+  const openInPopup = (item) => {
+    setAnchorEl(null);
+    setId(item);
+    
+    setOpenPopup(true);
+  };
+
+  
+  const [open, setOpen] = React.useState(false);
+
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event, data) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -188,21 +215,14 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={ProfileHandler}>
+      {/* <MenuItem onClick={ProfileHandler}>
         <AccountCircleIcon color="primary" />
-        Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <SettingsIcon color="primary" />
-        Settings</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <ContactSupportIcon color="primary" />
-        Customer Care</MenuItem>
-      <MenuItem >
-        <InfoIcon color="primary" />
-        About US</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <HelpIcon color="primary" />
-        Need Help?</MenuItem>
+        Profile</MenuItem> */}
+
+
+      <MenuItem onClick={openInPopup}>
+        <HelpIcon color="primary"  />
+        Contact Us</MenuItem>
       <MenuItem onClick={LogoutHandler}>
         <ExitToAppIcon color="primary" />
         Log Out</MenuItem>
@@ -262,26 +282,7 @@ export default function PrimarySearchAppBar() {
     );
   }
 
-  const [open, setOpen] = React.useState(false);
-
-  const anchorRef = React.useRef(null);
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event, data) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-  };
-
-
-
-
-
-
+  
 
 
   // return focus to the button when we transitioned from !open -> open
@@ -296,6 +297,19 @@ export default function PrimarySearchAppBar() {
 
 
 
+  const data = [
+    { country: 'Russia', area: 12 },
+    { country: 'Canada', area: 7 },
+    { country: 'USA', area: 7 },
+    { country: 'China', area: 7 },
+    { country: 'Brazil', area: 6 },
+    { country: 'Australia', area: 5 },
+    { country: 'India', area: 2 },
+    { country: 'Others', area: 55 },
+  ];
+ 
+
+
   return (
     <>
 
@@ -304,27 +318,34 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <img src={logo} style={{ height: "50px", width: "150px", marginRight: "20px" }} />
 
-            <div style={{marginLeft:"30px"}}>
-              <Button variant="contained" color="pink" 
-              onClick={DashboardHandler}
+            <div style={{ marginLeft: "30px" }}>
+              <Button variant="contained" color="pink"
+                onClick={DashboardHandler}
               >
-              <DashboardIcon color="primary"></DashboardIcon>
+                <DashboardIcon color="primary"></DashboardIcon>
                 Dashboard
               </Button>
             </div>
 
-            <div style={{marginLeft:"30px"}}>
-              <Button variant="contained" color="Pink" 
-              onClick={BookingHandler}
+            <div style={{ marginLeft: "30px" }}>
+              <Button variant="contained" color="Pink"
+                onClick={BookingHandler}
               >
                 <RoomIcon color="primary"></RoomIcon>
                 Room Bookings
               </Button>
             </div>
 
-            <div style={{marginLeft:"30px"}}>
+            <Popup
+                setId={setId}
+                id={id}
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+              ></Popup>
+
+            <div style={{ marginLeft: "30px" }}>
               <Button variant="contained" color="Pink"
-              onClick={Foodhandler}
+                onClick={Foodhandler}
               >
                 <KitchenIcon color="primary"></KitchenIcon>
                 Food Orders
@@ -363,3 +384,4 @@ export default function PrimarySearchAppBar() {
     </>
   );
 }
+
