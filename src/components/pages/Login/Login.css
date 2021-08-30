@@ -1,0 +1,29 @@
+.LogIn{
+    background: url('../../../assets/Untitled-1.jpg');
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    } 
+    .Box{
+      margin-left: 50%;
+      
+    }
+  .imageDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    animation: rotatelogo 40s linear infinite;
+  }
+
+  @keyframes rotatelogo{
+    from{ transform: rotate(0deg);}
+    to{ transform: rotate(0deg);}
+  }
+
+
